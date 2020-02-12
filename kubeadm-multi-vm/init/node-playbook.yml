@@ -1,0 +1,21 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: "Install docker"
+      include: tasks/install-docker.yml
+
+    - name: "Disable swap"
+      include: tasks/disable-swap.yml
+
+    - name: "Install kubeadm kubelet kubectl"
+      include: tasks/install-kubeadm-kubelet-kubectl.yml
+
+    - name: Copy the join command to server location
+      copy: src=join-command dest=/tmp/join-command.sh mode=0777
+
+    - name: Join the node to cluster
+      command: sh /tmp/join-command.sh
+
+  handlers:
+    - name: docker status
+      service: name=docker state=started
