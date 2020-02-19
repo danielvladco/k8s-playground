@@ -6,7 +6,7 @@ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
 echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
 
 apt-get update
-apt-get install -y curl make golang-1.13-go apt-transport-https kubectl
+apt-get install -y curl make golang-1.13-go apt-transport-https kubectl dos2unix
 
 export GO111MODULE="on"
 export GOPATH="/home/vagrant/go"
@@ -22,5 +22,5 @@ export PATH="$PATH:$GOROOT/bin"
 } >>/etc/bash.bashrc
 
 go get sigs.k8s.io/kind@v0.7.0
-kind create cluster
+kind create cluster --config kind.yaml
 kubectl cluster-info --context kind-kind

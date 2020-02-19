@@ -1,0 +1,1 @@
+sudo groupadd docker || true && sudo usermod -aG docker $USER

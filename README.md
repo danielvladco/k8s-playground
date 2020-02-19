@@ -7,7 +7,7 @@ This repository is a set of helpers to get up and running quickly with k8s
  - [ ] install env plugin `vagrant plugin install vagrant-env`
 
 ### Minikube
- - [ ] on ubuntu `cp .env.example .env && source .env && make kind-all`
+ - [ ] on ubuntu `cp .env.example .env && make kind-all`
  - [ ] on vagrant `cp .env.example ./minikube/.env && vagrant up`
 
 ### Kubeadm Multinode cluster (only on linux)
@@ -16,9 +16,12 @@ This repository is a set of helpers to get up and running quickly with k8s
  - [ ] `cp .env.example ./minikube/.env && vagrant up`
 
 ### Kind
- - [ ] on ubuntu `cp .env.example .env && source .env && make kind-all`
+ - [ ] on ubuntu `cp .env.example .env && make kind-all`
  - [ ] on vagrant `cp .env.example ./kind/.env && vagrant up`
 
-### Other Helpers
- - Proxy to forwarded port: `kubectl proxy --address=0.0.0.0 --port 80`
+### Proxy and port forwarding
  - Checkpoint login `curl -LO https://github.com/felixb/cpfw-login/releases/download/v0.3/cpfw-login_amd64 && ./cpfw-login_amd64 --user dvladco`
+ - Proxy to forwarded port of the entire kubernetes cluster `kubectl proxy --address=0.0.0.0 --port 80`
+ - port forward kubernetes service example: `kubectl port-forward svc/kubernetes-dashboard 8080:8080 -n kube-system`
+ - SSH port forwarding example using vagrant VM (-v -v is for verbosity)`ssh -i .vagrant/machines/default/virtualbox/private_key -L 8080:localhost:8080 vagrant@192.168.33.11 -N -v -v`
+  

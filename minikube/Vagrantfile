@@ -3,21 +3,21 @@ IMAGE_NAME = "bento/ubuntu-18.04"
 Vagrant.configure("2") do |config|
   config.env.enable
   config.vm.box = IMAGE_NAME
-  config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "forwarded_port", guest: 8080, host: 8080
   config.vm.network "private_network", ip: "192.168.33.10"
-  config.vm.network :public_network
-  config.vm.synced_folder "../", "/mnt/host"
+    config.vm.network :public_network, :bridge => 'eth1', :use_dhcp_assigned_default_route => true
+  config.vm.synced_folder "../../", "/mnt/host"
 
   config.vm.provider "virtualbox" do |v|
     v.memory = 4000
     v.cpus = 2
   end
 
-  config.vm.provision "shell", name: "ca-certificates", path: "../ca-certificates.sh", env: {"CA_CERTIFICATES" => ENV['CA_CERTIFICATES']}
-  config.vm.provision "shell", name: "docker", path: "https://get.docker.com"
+  config.vm.provision "shell", name: "ca-certificates", path: "../scripts/ca-certificates.sh", env: {"CA_CERTIFICATES" => ENV['CA_CERTIFICATES']}
+  config.vm.provision "shell", name: "docker", path: "../scripts/docker-install.sh"
   config.vm.provision "shell", name: "init", path: "./init.sh"
-  config.vm.provision "shell", name: "helm", path: "https://git.io/get_helm.sh"
-  config.vm.provision "shell", name: "helm-init", inline: "../helm-init.sh"
-  config.vm.provision "shell", name: "nsm", path: "../nsm.sh"
-  config.vm.provision "shell", name: "dashboard", path: "../dashboard.sh"
+  config.vm.provision "shell", name: "helm", path: "../scripts/helm-install.sh"
+  config.vm.provision "shell", name: "helm-init", inline: "../scripts/helm-init.sh"
+  config.vm.provision "shell", name: "nsm", path: "../scripts/nsm.sh"
+  config.vm.provision "shell", name: "dashboard", path: "../scripts/dashboard.sh"
 end

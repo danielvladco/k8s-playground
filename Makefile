@@ -1,5 +1,8 @@
-kind-all: ca-certs docker kind helm-all
-minikube-all: ca-certs docker minikube helm-all
+kind-all: ca-certs docker kind helm
+minikube-all: ca-certs docker minikube helm
+
+get-remote-scripts:
+	cd ./scripts && ./get-remote-scripts.sh || true && cd ..
 
 kind:
 	./kind/init.sh
@@ -7,13 +10,18 @@ kind:
 minikube:
 	./minikube/init.sh
 
-docker:
-	 curl https://get.docker.com | sh
+docker: docker-install docker-addgroup
 
-helm-all: helm-install helm-init nsm dashboard
+docker-install:
+	 ./scripts/docker-install.sh
+
+docker-addgroup:
+	./docker-addgroup.sh
+
+helm: helm-install helm-init
 
 helm-install:
-	curl -LO https://git.io/get_helm.sh && chmod +x get_helm.sh && sh get_helm.sh && rm -f get_helm.sh
+	./scripts/helm-install.sh
 
 helm-init:
 	./helm-init.sh
