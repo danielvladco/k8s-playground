@@ -1,5 +1,7 @@
-curl -L -o docker-install.sh https://get.docker.com
-sudo chmod +x docker-install.sh
+#!/usr/bin/env bash
 
-curl -L -o helm-install.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get
-sudo chmod +x helm-install.sh
+curl -L -o install-docker.sh https://get.docker.com
+sudo chmod +x install-docker.sh
+
+curl -L -o install-helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get
+sudo chmod +x install-helm.sh

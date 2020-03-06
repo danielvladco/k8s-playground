@@ -1,7 +1,9 @@
+#!/usr/bin/env bash
+
 # add golang repository
 add-apt-repository -y ppa:longsleep/golang-backports
 
-# requred for kubectl
+# required for kubectl
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
 
@@ -19,8 +21,7 @@ export PATH="$PATH:$GOROOT/bin"
   echo export GOROOT="/usr/lib/go-1.13"
   echo export PATH="\$PATH:/home/vagrant/go/bin"
   echo export PATH="\$PATH:/usr/lib/go-1.13/bin"
-} >>/etc/bash.bashrc
+} >> /etc/bash.bashrc
 
 go get sigs.k8s.io/kind@v0.7.0
-kind create cluster --config kind.yaml
-kubectl cluster-info --context kind-kind
+sudo chmod -R 0777 /home/vagrant/go

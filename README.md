@@ -1,5 +1,12 @@
 # K8s playground
-This repository is a set of helpers to get up and running quickly with k8s
+
+This setup helps to get up and running with kubernetes and start experimenting as quickly as possible on any platform (MacOS, windows, linux).
+
+If you want to setup a kubernetes cluster on windows it is as easy as calling `vagrant up` `vagrant ssh` and `./start.sh`!
+
+> :warning: **if you use vagrant on windows it is recommended to run vagrant up command as admin meaning run PowerShell as administrator**
+
+NOTE: the recommended VM is VirtualBox 
 
 ## If you want to use a VM
  - [ ] Install a virtualization machine ([VMWare](https://www.vmware.com/products/workstation-player/workstation-player-evaluation.html), [VirtualBox](https://www.virtualbox.org/wiki/Downloads)) or on Windows Enable [Hyper-V](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v)
