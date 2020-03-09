@@ -1,36 +1,45 @@
-kind-all: ca-certs docker kind helm
-minikube-all: ca-certs docker minikube helm
+SHELL:=/bin/bash
+
+kind-all: ca-certs docker kind-init kind-start helm
+minikube-all: ca-certs docker minikube-init minikube-start helm
 
 get-remote-scripts:
-	cd ./scripts && ./get-remote-scripts.sh || true && cd ..
+	@pushd scripts && ./get-remote-scripts.sh && popd
 
-kind:
-	./kind/init.sh
+kind-init:
+	@./kind/init.sh
 
-minikube:
-	./minikube/init.sh
+kind-start:
+	@pushd kind && ./start.sh && popd
+
+minikube-init:
+	@./minikube/init.sh
+
+minikube-start:
+	@pushd minikube && ./start.sh && popd
 
 docker: docker-install docker-addgroup
 
 docker-install:
-	 ./scripts/docker-install.sh
+	 @./scripts/install-docker.sh
 
 docker-addgroup:
-	./docker-addgroup.sh
+	@./docker-addgroup.sh
 
 helm: helm-install helm-init
 
 helm-install:
-	./scripts/helm-install.sh
+	@./scripts/install-helm.sh
 
 helm-init:
-	./helm-init.sh
+	@./scripts/helm-init.sh
 
+# utilities
 nsm:
-	./nsm.sh
+	@./scripts/nsm.sh
 
 dashboard:
-	./dashboard.sh
+	@./scripts/dashboard.sh
 
 ca-certs:
-	./ca-certificates.sh
+	@./scripts/ca-certificates.sh

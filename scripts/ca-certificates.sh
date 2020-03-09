@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 source ../.env
 cd /usr/local/share/ca-certificates/
 echo "Installing: $CA_CERTIFICATES"
